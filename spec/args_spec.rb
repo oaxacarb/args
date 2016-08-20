@@ -33,8 +33,7 @@ describe Args do
       schema = double
       allow(schema).to receive(:argument_for).with('l').and_return attribute
       parser = double
-      #TODO devolver null en lugar de true
-      allow(parser).to receive(:parse).with('-l').and_return({ l: true })
+      allow(parser).to receive(:parse).with('-l').and_return({ l: nil })
 
       args = Args.new(schema, parser)
       str = "-l"
