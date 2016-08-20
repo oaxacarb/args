@@ -1,24 +1,22 @@
 class Parser
   def parse cadena
-    result = {}
-    cadena.split("-").each do |c| 
+    cadena.split("-").each_with_object({}) do |c, result| 
       next if c.empty?
       result.merge! miniparse(c.strip)
     end
-    result
   end
   
   def miniparse cadena
     return {} if cadena.empty?
-    key = cadena.split.first.to_sym
-    value = cadena.split.last
     
-    if cadena.split.size == 2
-      { key => value }
-    elsif cadena.split.size > 2
-      raise 'Invalid input'
-    else
-      { key => nil }
+    array = cadena.split
+    key = array.first.to_sym
+    value = array.last
+    
+    case array.size
+      when 2 then { key => value }
+      when 1 then { key => nil }
+      else raise 'Invalid input'
     end    
   end
 end
